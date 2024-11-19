@@ -18,7 +18,8 @@ namespace Code.Hero.Abilities
 
         IEnumerator Dash(Transform origin)
         {
-            var targetPosition = new Vector3(origin.position.x + Range, origin.position.y, origin.position.z);
+            var targetPosition = origin.position;
+            targetPosition += origin.forward * Range;
             
             float timer = 0f;
             while (timer < Duration)
