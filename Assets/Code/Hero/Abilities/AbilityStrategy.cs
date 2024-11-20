@@ -10,5 +10,7 @@ namespace Code.Hero.Abilities
         public abstract void BeginCooldown(float amount);
         
         public abstract Sprite GetIcon();
+        
+        public abstract Cooldown GetCooldown();
     }
 }

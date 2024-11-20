@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace Code.Hero.Abilities
 {
-    public static class Cooldown
+    public class Cooldown
     {
-        private static bool m_isOnCooldown = false;
+        private bool m_isOnCooldown = false;
         
-        private static float m_remainingTime = 0f;
+        private float m_remainingTime = 0f;
 
-        public static event Action<float> OnCooldownBegin;
-        public static event Action<float> OnCooldownTimerTick;
+        public event Action<float> OnCooldownBegin;
+        public event Action<float> OnCooldownTimerTick;
         
-        public static bool IsOnCooldown() => m_isOnCooldown;
+        public bool IsOnCooldown() => m_isOnCooldown;
 
-        public static IEnumerator Begin(float duration)
+        public IEnumerator Begin(float duration)
         {
             OnCooldownBegin?.Invoke(duration);
             m_isOnCooldown = true;
@@ -33,6 +33,6 @@ namespace Code.Hero.Abilities
             m_isOnCooldown = false;
         }
 
-        public static float GetRemainingTime() => m_remainingTime;
+        public float GetRemainingTime() => m_remainingTime;
     }
 }

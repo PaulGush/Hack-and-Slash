@@ -12,11 +12,13 @@ namespace Code.Hero.Abilities
         public float Damage;
         public float CooldownDuration;
 
+        private Cooldown m_cooldown = new Cooldown();
+        
         public override void ExecuteAbility(Transform origin)
         {
-            if (Cooldown.IsOnCooldown())
+            if (m_cooldown.IsOnCooldown())
             {
-                Debug.Log("Ability is on cooldown. " + Cooldown.GetRemainingTime() + " remaining.");
+                Debug.Log("Ability is on cooldown. " + m_cooldown.GetRemainingTime() + " remaining.");
                 return;
             }
             
@@ -26,8 +28,9 @@ namespace Code.Hero.Abilities
 
         public override void BeginCooldown(float amount)
         {
-            MonoInstance.Instance.StartCoroutine(Cooldown.Begin(amount));        }
+            MonoInstance.Instance.StartCoroutine(m_cooldown.Begin(amount));        }
 
         public override Sprite GetIcon() => Icon;
+        public override Cooldown GetCooldown() => m_cooldown;
     }
 }

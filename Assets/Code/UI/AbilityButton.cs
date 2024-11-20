@@ -13,12 +13,19 @@ namespace Code.UI
         [SerializeField] private TextMeshProUGUI m_text;
         [SerializeField] private Image m_icon;
 
+        private Cooldown m_cooldown;
+        
+        private void Awake()
+        {
+            m_cooldown = m_ability.GetCooldown();
+        }
+
         private void OnEnable()
         {
             UpdateIcon(m_ability.GetIcon());
 
-            Cooldown.OnCooldownBegin += Cooldown_OnCooldownBegin;
-            Cooldown.OnCooldownTimerTick += Cooldown_OnCooldownTimerTick;
+            m_cooldown.OnCooldownBegin += Cooldown_OnCooldownBegin;
+            m_cooldown.OnCooldownTimerTick += Cooldown_OnCooldownTimerTick;
         }
 
         private float m_cooldownDuration;
