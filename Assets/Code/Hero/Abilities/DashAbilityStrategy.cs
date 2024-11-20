@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Hero.Abilities
 {
@@ -7,8 +9,9 @@ namespace Code.Hero.Abilities
     public class DashAbilityStrategy : AbilityStrategy
     {
         public float Duration;
-        public float Range;
+        public float Force;
         public float CooldownDuration;
+        public static event Action<float, float> OnDash;
 
         public override void ExecuteAbility(Transform origin)
         {
@@ -18,24 +21,8 @@ namespace Code.Hero.Abilities
                 return;
             }
 
-            MonoInstance.Instance.StartCoroutine(Dash(origin));
+            OnDash?.Invoke(Force, Duration);
             MonoInstance.Instance.StartCoroutine(Cooldown.Begin(CooldownDuration));
-        }
-
-        IEnumerator Dash(Transform origin)
-        {
-            var targetPosition = origin.position;
-            targetPosition += origin.forward * Range;
-            
-            float timer = 0f;
-            while (timer < Duration)
-            {
-                timer += Time.deltaTime;
-                origin.position = Vector3.Lerp(origin.position, targetPosition, timer / Duration);
-                yield return null;
-            }
-            
-            origin.position = targetPosition;
         }
     }
 }

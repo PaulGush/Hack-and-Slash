@@ -1,4 +1,5 @@
-using System;
+using System.Collections;
+using Code.Hero.Abilities;
 using Code.Input;
 using UnityEngine;
 
@@ -13,6 +14,12 @@ namespace Code.Hero
         [SerializeField] private float m_moveSpeed = 5f;
 
         [SerializeField] private float m_rotationSoeed = 10f;
+
+        private void Awake()
+        {
+            DashAbilityStrategy.OnDash += DashAbilityStrategy_OnDash;
+        }
+
         private void Update()
         {
             HandleInput();
@@ -40,6 +47,25 @@ namespace Code.Hero
 
             #endregion
             
+        }
+
+        private void DashAbilityStrategy_OnDash(float force, float duration)
+        {
+            StartCoroutine(SmoothDash(force, duration));
+        }
+        
+        IEnumerator SmoothDash(float dashForce, float duration)
+        {
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                
+                m_rigidbody.AddForce(transform.forward * dashForce, ForceMode.Impulse);
+
+                yield return null;
+            }
         }
     }
 }
