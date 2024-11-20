@@ -1160,7 +1160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4368071135009268325, guid: 3543f8a7e87fccf4489d83c23f765822, type: 3}
       propertyPath: m_text
-      value: DASH
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4368071135009268325, guid: 3543f8a7e87fccf4489d83c23f765822, type: 3}
       propertyPath: m_fontSize

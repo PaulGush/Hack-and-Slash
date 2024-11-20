@@ -31,11 +31,25 @@ namespace Code.UI
         private void Cooldown_OnCooldownTimerTick(float newValue)
         {
             UpdateRadial(newValue);
+            UpdateText(newValue);
         }
 
         private void UpdateRadial(float amount)
         {
             m_radial.fillAmount = amount / m_cooldownDuration;
+        }
+
+        private void UpdateText(float newValue)
+        {
+            var final = Mathf.RoundToInt(newValue);
+
+            if (final == 0)
+            {
+                m_text.text = "";
+                return;
+            }
+
+            m_text.text = final.ToString();
         }
 
         private void UpdateIcon(Sprite icon) => m_icon.sprite = icon;
