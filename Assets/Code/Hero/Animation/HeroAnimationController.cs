@@ -1,4 +1,3 @@
-using System;
 using Code.Input;
 using UnityEngine;
 

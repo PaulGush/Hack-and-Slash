@@ -2,6 +2,7 @@ using System.Collections;
 using Code.Hero.Abilities;
 using Code.Input;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Hero
 {
@@ -13,7 +14,7 @@ namespace Code.Hero
         [Header("Values")]
         [SerializeField] private float m_moveSpeed = 5f;
 
-        [SerializeField] private float m_rotationSoeed = 10f;
+        [SerializeField] private float m_rotationSpeed = 10f;
 
         private void Awake()
         {
@@ -43,7 +44,7 @@ namespace Code.Hero
             
             Quaternion targetRotation = Quaternion.LookRotation(newRotationVector);
             
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * m_rotationSoeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * m_rotationSpeed);
 
             #endregion
             

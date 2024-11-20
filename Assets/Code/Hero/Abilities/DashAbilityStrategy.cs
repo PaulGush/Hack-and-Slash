@@ -1,13 +1,13 @@
 using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Code.Hero.Abilities
 {
     [CreateAssetMenu(fileName = "DashAbility", menuName = "Abilities/DashAbility")]
     public class DashAbilityStrategy : AbilityStrategy
     {
+        public Sprite Icon;
         public float Duration;
         public float Force;
         public float CooldownDuration;
@@ -22,7 +22,14 @@ namespace Code.Hero.Abilities
             }
 
             OnDash?.Invoke(Force, Duration);
-            MonoInstance.Instance.StartCoroutine(Cooldown.Begin(CooldownDuration));
+            BeginCooldown(CooldownDuration);
         }
+
+        public override void BeginCooldown(float amount)
+        {
+            MonoInstance.Instance.StartCoroutine(Cooldown.Begin(amount));
+        }
+
+        public override Sprite GetIcon() => Icon;
     }
 }
