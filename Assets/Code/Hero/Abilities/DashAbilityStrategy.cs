@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using Random = Unity.Mathematics.Random;
 
 namespace Code.Hero.Abilities
 {
