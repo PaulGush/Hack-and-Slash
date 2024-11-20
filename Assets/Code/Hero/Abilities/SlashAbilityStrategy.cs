@@ -8,7 +8,8 @@ namespace Code.Hero.Abilities
         public float Duration;
         public float Range;
         public float Damage;
-        
+        public float Cooldown;
+
         public override void ExecuteAbility(Transform origin)
         {
             Debug.Log("Slash!");

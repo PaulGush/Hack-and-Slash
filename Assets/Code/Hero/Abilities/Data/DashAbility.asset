@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bad05fe1f5341ef8f06062649b546b4, type: 3}
   m_Name: DashAbility
   m_EditorClassIdentifier: 
-  Cooldown: 0
   Duration: 0.5
   Range: 3
+  CooldownDuration: 5

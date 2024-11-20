@@ -8,10 +8,18 @@ namespace Code.Hero.Abilities
     {
         public float Duration;
         public float Range;
-        
+        public float CooldownDuration;
+
         public override void ExecuteAbility(Transform origin)
         {
+            if (Cooldown.IsOnCooldown())
+            {
+                Debug.Log("Ability is on cooldown. " + Cooldown.GetRemainingTime() + " remaining.");
+                return;
+            }
+
             MonoInstance.Instance.StartCoroutine(Dash(origin));
+            MonoInstance.Instance.StartCoroutine(Cooldown.Begin(CooldownDuration));
         }
 
         IEnumerator Dash(Transform origin)
