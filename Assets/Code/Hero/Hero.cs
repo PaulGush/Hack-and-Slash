@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Code.Hero.Abilities;
 using Code.UI;
 using UnityEngine;
@@ -6,21 +7,21 @@ namespace Code.Hero
 {
     public class Hero : MonoBehaviour
     {
-        [SerializeField] AbilityStrategy[] m_abilities;
+        [SerializeField] List<AbilityStrategy> m_abilities;
         
         private void OnEnable()
         {
-            HeadsUpDisplay.OnButtonPressed += ExecuteAbility;
+            AbilityButton.OnButtonPressed += ExecuteAbility;
         }
 
         private void OnDisable()
         {
-            HeadsUpDisplay.OnButtonPressed -= ExecuteAbility;
+            AbilityButton.OnButtonPressed -= ExecuteAbility;
         }
 
-        void ExecuteAbility(int index)
+        void ExecuteAbility(AbilityStrategy ability)
         {
-            m_abilities[index].ExecuteAbility(transform);
+            ability.ExecuteAbility(transform);
         }
     }
 }

@@ -168,10 +168,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7341607ea212c469b04cb5fd7f9c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ability: {fileID: 0}
-  m_radial: {fileID: 4128247077393819661}
-  m_text: {fileID: 4368071135009268325}
-  m_icon: {fileID: 1522906646817851276}
+  Ability: {fileID: 0}
+  Radial: {fileID: 4128247077393819661}
+  Text: {fileID: 4368071135009268325}
+  Icon: {fileID: 1522906646817851276}
+  ButtonComponent: {fileID: 4082833964552008068}
 --- !u!1 &3465711871451040201
 GameObject:
   m_ObjectHideFlags: 0

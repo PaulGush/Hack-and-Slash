@@ -3,29 +3,76 @@ using Code.Hero.Abilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Cooldown = Code.Hero.Abilities.Cooldown;
 
 namespace Code.UI
 {
     public class AbilityButton : MonoBehaviour
     {
-        [SerializeField] private AbilityStrategy m_ability;
-        [SerializeField] private Image m_radial;
-        [SerializeField] private TextMeshProUGUI m_text;
-        [SerializeField] private Image m_icon;
+        public AbilityStrategy Ability;
+        public Image Radial;
+        public TextMeshProUGUI Text;
+        public Image Icon;
+        public Button ButtonComponent;
 
         private Cooldown m_cooldown;
+
+        public static event Action<AbilityStrategy> OnButtonPressed; 
         
-        private void Awake()
+        public class Builder
         {
-            m_cooldown = m_ability.GetCooldown();
+            private GameObject m_buttonPrefab;
+            private AbilityStrategy m_strategy;
+            private Cooldown m_cooldown;
+            private Transform m_parent;
+
+            public Builder WithPrefab(GameObject buttonPrefab)
+            {
+                m_buttonPrefab = buttonPrefab;
+                return this;
+            }
+
+            public Builder WithAbility(AbilityStrategy ability)
+            {
+                m_strategy = ability;
+                return this;
+            }
+
+            public Builder WithCooldown(Cooldown cooldown)
+            {
+                m_cooldown = cooldown;
+                return this;
+            }
+
+            public Builder WithParent(Transform parent)
+            {
+                m_parent = parent;
+                return this;
+            }
+
+            public AbilityButton Build()
+            {
+                var abilityButtonObject = Instantiate(m_buttonPrefab, m_parent);
+                var abilityButton = abilityButtonObject.GetComponent<AbilityButton>();
+                
+                abilityButton.m_cooldown = m_cooldown;
+                abilityButton.SetAbilityStrategy(m_strategy);
+
+                abilityButton.Initialize();
+                
+                return abilityButton;
+            }
         }
 
-        private void OnEnable()
+        private void Initialize()
         {
-            UpdateIcon(m_ability.GetIcon());
+            m_cooldown = Ability.GetCooldown();
+            UpdateIcon(Ability.GetIcon());
 
             m_cooldown.OnCooldownBegin += Cooldown_OnCooldownBegin;
             m_cooldown.OnCooldownTimerTick += Cooldown_OnCooldownTimerTick;
+            
+            ButtonComponent.onClick.AddListener(() => OnButtonPressed?.Invoke(Ability));
         }
 
         private float m_cooldownDuration;
@@ -43,7 +90,7 @@ namespace Code.UI
 
         private void UpdateRadial(float amount)
         {
-            m_radial.fillAmount = amount / m_cooldownDuration;
+            Radial.fillAmount = amount / m_cooldownDuration;
         }
 
         private void UpdateText(float newValue)
@@ -52,13 +99,15 @@ namespace Code.UI
 
             if (final == 0)
             {
-                m_text.text = "";
+                Text.text = "";
                 return;
             }
 
-            m_text.text = final.ToString();
+            Text.text = final.ToString();
         }
 
-        private void UpdateIcon(Sprite icon) => m_icon.sprite = icon;
+        private void UpdateIcon(Sprite icon) => Icon.sprite = icon;
+        
+        public void SetAbilityStrategy(AbilityStrategy strategy) => Ability = strategy;
     }
 }

@@ -1,25 +1,25 @@
+using System.Collections.Generic;
+using Code.Hero.Abilities;
+using Code.UI.Factories;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Code.UI
 {
     public class HeadsUpDisplay : MonoBehaviour
     {
-        [SerializeField] private Button[] m_abilities;
-
-        public delegate void ButtonPressedEvent(int index);
+        [SerializeField] private AbilityButtonFactory m_abilityButtonFactory;
+        [SerializeField] private AbilityStrategy[] m_abilityStrategies;
         
-        public static event ButtonPressedEvent OnButtonPressed;
-
+        [SerializeField] private List<Button> m_buttons;
+        
         private void Awake()
         {
-            for (int i = 0; i < m_abilities.Length; i++)
+            foreach (var ability in m_abilityStrategies)
             {
-                int index = i;
-                m_abilities[i].onClick.AddListener(() => OnButtonPressed?.Invoke(index));
+                m_abilityButtonFactory.CreateButton(ability, transform);
             }
         }
-
-        private void HandleButtonPress(int index) => OnButtonPressed?.Invoke(index);
     }
 }
