@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Code.Hero.Abilities
+namespace Code.Utils
 {
     public class MonoInstance : MonoBehaviour
     {

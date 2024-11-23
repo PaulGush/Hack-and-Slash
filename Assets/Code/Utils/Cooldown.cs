@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Code.Hero.Abilities
+namespace Code.Utils
 {
     public class Cooldown
     {
