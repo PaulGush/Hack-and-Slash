@@ -3,7 +3,7 @@ using Code.Hero.Abilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Cooldown = Code.Hero.Abilities.Cooldown;
+using Cooldown = Code.Utils.Cooldown;
 
 namespace Code.UI
 {
