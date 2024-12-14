@@ -23,7 +23,6 @@ namespace Code.Hero.Abilities
                 return;
             }
             
-            Debug.Log("Slash!");
             BeginCooldown(CooldownDuration);
         }
 

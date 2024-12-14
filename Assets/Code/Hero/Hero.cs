@@ -1,21 +1,16 @@
 using System.Collections.Generic;
 using Code.Hero.Abilities;
 using Code.UI;
+using DependencyInjection;
 using UnityEngine;
 
 namespace Code.Hero
 {
-    public class Hero : MonoBehaviour
+    public class Hero : MonoBehaviour, IDependencyProvider
     {
-        [SerializeField] private AbilityStrategy m_primaryAbility;
-        [SerializeField] private AbilityStrategy m_secondaryAbility;
-        [SerializeField] private AbilityStrategy m_tertiaryAbility;
-        [SerializeField] private AbilityStrategy m_dashAbility;
-        
-        [SerializeField] private List<AbilityStrategy> m_abilities = new List<AbilityStrategy>();
+        [SerializeField] private List<AbilityStrategy> m_abilities;
         private void OnEnable()
         {
-            InitializeAbilities();
             AbilityButton.OnButtonPressed += ExecuteAbility;
         }
 
@@ -29,16 +24,10 @@ namespace Code.Hero
             ability.ExecuteAbility(transform);
         }
 
-        public List<AbilityStrategy> GetAbilities() => m_abilities;
-
-        private void InitializeAbilities()
+        [Provide]
+        public AbilityStrategy[] ProvideAbilities()
         {
-            m_abilities.Clear();
-            
-            m_abilities.Add(m_primaryAbility);
-            m_abilities.Add(m_secondaryAbility);
-            m_abilities.Add(m_tertiaryAbility);
-            m_abilities.Add(m_dashAbility);
+            return m_abilities.ToArray();
         }
     }
 }
