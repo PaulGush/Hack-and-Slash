@@ -18,7 +18,12 @@ namespace Code.Hero.Abilities
         
         public override void ExecuteAbility(Transform origin)
         {
+            if (m_cooldown.IsOnCooldown())
+            {
+                return;
+            }
             
+            BeginCooldown(CooldownDuration);
         }
 
         public override void BeginCooldown(float amount)

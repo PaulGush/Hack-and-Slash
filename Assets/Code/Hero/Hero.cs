@@ -1,5 +1,6 @@
 using System;
 using Code.Hero.Abilities;
+using Code.Input;
 using Code.UI;
 using DependencyInjection;
 using Sirenix.OdinInspector;
@@ -17,12 +18,32 @@ namespace Code.Hero
         [SerializeField] private DashAbility m_dashAbility;
         private void OnEnable()
         {
-            AbilityButton.OnButtonPressed += ExecuteAbility;
+            //AbilityButton.OnButtonPressed += ExecuteAbility;
+            
+            PlayerInputs.Instance.OnPrimaryPressed += PlayerInputs_OnPrimaryPressed;
+            PlayerInputs.Instance.OnSecondaryPressed += PlayerInputs_OnSecondaryPressed;
+            PlayerInputs.Instance.OnSpecialPressed += PlayerInputs_OnSpecialPressed;
+            PlayerInputs.Instance.OnDashPressed += PlayerInputs_OnDashPressed;
+            
+            PlayerInputs.Instance.OnPrimaryReleased += PlayerInputs_OnPrimaryReleased;
+            PlayerInputs.Instance.OnSecondaryReleased += PlayerInputs_OnSecondaryReleased;
+            PlayerInputs.Instance.OnSpecialReleased += PlayerInputs_OnSpecialReleased;
+            PlayerInputs.Instance.OnDashReleased += PlayerInputs_OnDashReleased;
         }
 
         private void OnDisable()
         {
-            AbilityButton.OnButtonPressed -= ExecuteAbility;
+            //AbilityButton.OnButtonPressed -= ExecuteAbility;
+            
+            PlayerInputs.Instance.OnPrimaryPressed -= PlayerInputs_OnPrimaryPressed;
+            PlayerInputs.Instance.OnSecondaryPressed -= PlayerInputs_OnSecondaryPressed;
+            PlayerInputs.Instance.OnSpecialPressed -= PlayerInputs_OnSpecialPressed;
+            PlayerInputs.Instance.OnDashPressed -= PlayerInputs_OnDashPressed;
+            
+            PlayerInputs.Instance.OnPrimaryReleased -= PlayerInputs_OnPrimaryReleased;
+            PlayerInputs.Instance.OnSecondaryReleased -= PlayerInputs_OnSecondaryReleased;
+            PlayerInputs.Instance.OnSpecialReleased -= PlayerInputs_OnSpecialReleased;
+            PlayerInputs.Instance.OnDashReleased -= PlayerInputs_OnDashReleased;
         }
 
         private void ExecuteAbility(Ability ability)
@@ -61,6 +82,46 @@ namespace Code.Hero
         public Hero ProvideHero()
         {
             return this;
+        }
+
+        private void PlayerInputs_OnPrimaryPressed()
+        {
+            ExecuteAbility(m_attackAbility);
+        }
+
+        private void PlayerInputs_OnPrimaryReleased()
+        {
+            
+        }
+
+        private void PlayerInputs_OnSecondaryPressed()
+        {
+            ExecuteAbility(m_specialAbility);
+        }
+
+        private void PlayerInputs_OnSecondaryReleased()
+        {
+            
+        }
+
+        private void PlayerInputs_OnSpecialPressed()
+        {
+            ExecuteAbility(m_blockAbility);
+        }
+
+        private void PlayerInputs_OnSpecialReleased()
+        {
+            
+        }
+
+        private void PlayerInputs_OnDashPressed()
+        {
+            ExecuteAbility(m_dashAbility);
+        }
+
+        private void PlayerInputs_OnDashReleased()
+        {
+            
         }
     }
 }

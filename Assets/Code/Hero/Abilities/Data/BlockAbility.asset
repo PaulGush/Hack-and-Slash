@@ -16,4 +16,4 @@ MonoBehaviour:
   Duration: 3
   Range: 0
   MaxDamageAbsorption: 0
-  CooldownDuration: 0
+  CooldownDuration: 2

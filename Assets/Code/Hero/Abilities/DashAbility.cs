@@ -22,7 +22,6 @@ namespace Code.Hero.Abilities
         {
             if (m_cooldown.IsOnCooldown())
             {
-                Debug.Log("Ability is on cooldown. " + m_cooldown.GetRemainingTime() + " remaining.");
                 return;
             }
 

@@ -29,9 +29,12 @@ namespace Code.Input
         public event Action OnSprintHeld;
         public event Action OnSprintReleased;
         
-        public event Action OnJumpPressed;
-        public event Action OnJumpHeld;
-        public event Action OnJumpReleased;
+        public event Action OnDashPressed;
+        public event Action OnDashHeld;
+        public event Action OnDashReleased;
+
+        public event Action OnSpecialPressed;
+        public event Action OnSpecialReleased;
 
         public event Action<Vector2> OnMovePressed;
         public event Action<Vector2> OnMoveHeld;
@@ -72,6 +75,8 @@ namespace Code.Input
             Controls.Actions.Interact.canceled += InteractReleased;
             Controls.Actions.Dash.performed += DashPressed;
             Controls.Actions.Dash.canceled += DashReleased;
+            Controls.Actions.Special.performed += SpecialPressed;
+            Controls.Actions.Special.canceled += SpecialReleased;
             
             Controls.Movement.CursorMove.performed += CursorMoved;
             Controls.Movement.Rotate.performed += RotatePressed;
@@ -119,12 +124,12 @@ namespace Code.Input
 
         private void DashPressed(InputAction.CallbackContext context)
         {
-            OnJumpPressed?.Invoke();
+            OnDashPressed?.Invoke();
         }
 
         private void DashReleased(InputAction.CallbackContext context)
         {
-            OnJumpReleased?.Invoke();
+            OnDashReleased?.Invoke();
         }
 
         private void SprintPressed(InputAction.CallbackContext context)
@@ -135,6 +140,16 @@ namespace Code.Input
         private void SprintReleased(InputAction.CallbackContext context)
         {
             OnSprintReleased?.Invoke();
+        }
+        
+        private void SpecialPressed(InputAction.CallbackContext context)
+        {
+            OnSpecialPressed?.Invoke();
+        }
+        
+        private void SpecialReleased(InputAction.CallbackContext context)
+        {
+            OnSpecialReleased?.Invoke();
         }
         
         private void MovePressed(InputAction.CallbackContext context)
@@ -213,7 +228,7 @@ namespace Code.Input
             
             if (Controls.Actions.Dash.phase == InputActionPhase.Performed)
             {
-                OnJumpHeld?.Invoke();
+                OnDashHeld?.Invoke();
             }
 
             if (Controls.Movement.Rotate.phase == InputActionPhase.Performed)

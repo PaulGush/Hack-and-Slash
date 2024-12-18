@@ -399,6 +399,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Special"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d3d957a-d9d6-4c8b-8c4b-18a284c417cc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -500,6 +509,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88e6f473-0a05-45da-96a3-e055721bbd33"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Special"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -520,6 +540,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Actions_Secondary = m_Actions.FindAction("Secondary", throwIfNotFound: true);
         m_Actions_Interact = m_Actions.FindAction("Interact", throwIfNotFound: true);
         m_Actions_Dash = m_Actions.FindAction("Dash", throwIfNotFound: true);
+        m_Actions_Special = m_Actions.FindAction("Special", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -677,6 +698,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Actions_Secondary;
     private readonly InputAction m_Actions_Interact;
     private readonly InputAction m_Actions_Dash;
+    private readonly InputAction m_Actions_Special;
     public struct ActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -685,6 +707,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Secondary => m_Wrapper.m_Actions_Secondary;
         public InputAction @Interact => m_Wrapper.m_Actions_Interact;
         public InputAction @Dash => m_Wrapper.m_Actions_Dash;
+        public InputAction @Special => m_Wrapper.m_Actions_Special;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -706,6 +729,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
+            @Special.started += instance.OnSpecial;
+            @Special.performed += instance.OnSpecial;
+            @Special.canceled += instance.OnSpecial;
         }
 
         private void UnregisterCallbacks(IActionsActions instance)
@@ -722,6 +748,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
+            @Special.started -= instance.OnSpecial;
+            @Special.performed -= instance.OnSpecial;
+            @Special.canceled -= instance.OnSpecial;
         }
 
         public void RemoveCallbacks(IActionsActions instance)
@@ -754,5 +783,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSecondary(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnSpecial(InputAction.CallbackContext context);
     }
 }
