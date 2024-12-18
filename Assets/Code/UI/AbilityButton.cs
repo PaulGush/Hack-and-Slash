@@ -9,7 +9,7 @@ namespace Code.UI
 {
     public class AbilityButton : MonoBehaviour
     {
-        public AbilityStrategy Ability;
+        public Ability Ability;
         public Image Radial;
         public TextMeshProUGUI Text;
         public Image Icon;
@@ -17,12 +17,12 @@ namespace Code.UI
 
         private Cooldown m_cooldown;
 
-        public static event Action<AbilityStrategy> OnButtonPressed; 
+        public static event Action<Ability> OnButtonPressed; 
         
         public class Builder
         {
             private GameObject m_buttonPrefab;
-            private AbilityStrategy m_strategy;
+            private Ability m_strategy;
             private Cooldown m_cooldown;
             private Transform m_parent;
 
@@ -32,7 +32,7 @@ namespace Code.UI
                 return this;
             }
 
-            public Builder WithAbility(AbilityStrategy ability)
+            public Builder WithAbility(Ability ability)
             {
                 m_strategy = ability;
                 return this;
@@ -108,6 +108,6 @@ namespace Code.UI
 
         private void UpdateIcon(Sprite icon) => Icon.sprite = icon;
         
-        public void SetAbilityStrategy(AbilityStrategy strategy) => Ability = strategy;
+        public void SetAbilityStrategy(Ability strategy) => Ability = strategy;
     }
 }

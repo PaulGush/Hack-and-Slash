@@ -1,22 +1,30 @@
 using Code.Utils;
 using UnityEngine;
 
+//USING STRATEGY PATTERN
+
 namespace Code.Hero.Abilities
 {
-    [CreateAssetMenu(fileName = "BlockAbility", menuName = "Abilities/Block Ability")]
-    public class BlockAbilityStrategy : AbilityStrategy
+    [CreateAssetMenu(fileName = "AttackAbility", menuName = "Abilities/AttackAbility")]
+    public class AttackAbility : Ability
     {
         public Sprite Icon;
         public float Duration;
         public float Range;
-        public float MaxDamageAbsorption;
+        public float Damage;
         public float CooldownDuration;
-        
+
         private Cooldown m_cooldown = new Cooldown();
         
         public override void ExecuteAbility(Transform origin)
         {
-            throw new System.NotImplementedException();
+            if (m_cooldown.IsOnCooldown())
+            {
+                Debug.Log("Ability is on cooldown. " + m_cooldown.GetRemainingTime() + " remaining.");
+                return;
+            }
+            
+            BeginCooldown(CooldownDuration);
         }
 
         public override void BeginCooldown(float amount)

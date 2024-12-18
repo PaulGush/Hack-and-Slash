@@ -3,10 +3,12 @@ using Code.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
+//USING STRATEGY PATTERN
+
 namespace Code.Hero.Abilities
 {
     [CreateAssetMenu(fileName = "DashAbility", menuName = "Abilities/DashAbility")]
-    public class DashAbilityStrategy : AbilityStrategy
+    public class DashAbility : Ability
     {
         public Sprite Icon;
         public float Duration;

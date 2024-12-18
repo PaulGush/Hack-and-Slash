@@ -1,10 +1,11 @@
 using Code.Utils;
 using UnityEngine;
-using UnityEngine.UI;
+
+//USING STRATEGY PATTERN
 
 namespace Code.Hero.Abilities
 {
-    public abstract class AbilityStrategy : ScriptableObject
+    public abstract class Ability : ScriptableObject
     {
         public abstract void ExecuteAbility(Transform origin);
 

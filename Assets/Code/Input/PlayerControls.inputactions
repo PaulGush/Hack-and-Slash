@@ -364,13 +364,13 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "9ff65c45-f971-4d92-aba7-c1c309318d51",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "95f95210-00a5-47bc-8b20-ce17a8ee9040",
                     "expectedControlType": "",
@@ -464,7 +464,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -475,7 +475,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

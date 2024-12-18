@@ -70,8 +70,8 @@ namespace Code.Input
             Controls.Actions.Secondary.canceled += SecondaryReleased;
             Controls.Actions.Interact.performed += InteractPressed;
             Controls.Actions.Interact.canceled += InteractReleased;
-            Controls.Actions.Jump.performed += JumpPressed;
-            Controls.Actions.Jump.canceled += JumpReleased;
+            Controls.Actions.Dash.performed += DashPressed;
+            Controls.Actions.Dash.canceled += DashReleased;
             
             Controls.Movement.CursorMove.performed += CursorMoved;
             Controls.Movement.Rotate.performed += RotatePressed;
@@ -117,12 +117,12 @@ namespace Code.Input
             OnInteractReleased?.Invoke();
         }
 
-        private void JumpPressed(InputAction.CallbackContext context)
+        private void DashPressed(InputAction.CallbackContext context)
         {
             OnJumpPressed?.Invoke();
         }
 
-        private void JumpReleased(InputAction.CallbackContext context)
+        private void DashReleased(InputAction.CallbackContext context)
         {
             OnJumpReleased?.Invoke();
         }
@@ -211,7 +211,7 @@ namespace Code.Input
                 OnInteractHeld?.Invoke();
             }
             
-            if (Controls.Actions.Jump.phase == InputActionPhase.Performed)
+            if (Controls.Actions.Dash.phase == InputActionPhase.Performed)
             {
                 OnJumpHeld?.Invoke();
             }

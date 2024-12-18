@@ -18,7 +18,7 @@ namespace Code.Hero
 
         private void Awake()
         {
-            DashAbilityStrategy.OnDash += DashAbilityStrategy_OnDash;
+            DashAbility.OnDash += DashAbilityStrategy_OnDash;
         }
 
         private void Update()

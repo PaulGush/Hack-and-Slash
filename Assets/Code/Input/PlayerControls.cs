@@ -386,13 +386,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""9ff65c45-f971-4d92-aba7-c1c309318d51"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""95f95210-00a5-47bc-8b20-ce17a8ee9040"",
                     ""expectedControlType"": """",
@@ -486,7 +486,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -497,7 +497,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -519,7 +519,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Actions_Primary = m_Actions.FindAction("Primary", throwIfNotFound: true);
         m_Actions_Secondary = m_Actions.FindAction("Secondary", throwIfNotFound: true);
         m_Actions_Interact = m_Actions.FindAction("Interact", throwIfNotFound: true);
-        m_Actions_Jump = m_Actions.FindAction("Jump", throwIfNotFound: true);
+        m_Actions_Dash = m_Actions.FindAction("Dash", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -676,7 +676,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Actions_Primary;
     private readonly InputAction m_Actions_Secondary;
     private readonly InputAction m_Actions_Interact;
-    private readonly InputAction m_Actions_Jump;
+    private readonly InputAction m_Actions_Dash;
     public struct ActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -684,7 +684,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Primary => m_Wrapper.m_Actions_Primary;
         public InputAction @Secondary => m_Wrapper.m_Actions_Secondary;
         public InputAction @Interact => m_Wrapper.m_Actions_Interact;
-        public InputAction @Jump => m_Wrapper.m_Actions_Jump;
+        public InputAction @Dash => m_Wrapper.m_Actions_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -703,9 +703,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @Jump.started += instance.OnJump;
-            @Jump.performed += instance.OnJump;
-            @Jump.canceled += instance.OnJump;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
         }
 
         private void UnregisterCallbacks(IActionsActions instance)
@@ -719,9 +719,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @Jump.started -= instance.OnJump;
-            @Jump.performed -= instance.OnJump;
-            @Jump.canceled -= instance.OnJump;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
         }
 
         public void RemoveCallbacks(IActionsActions instance)
@@ -753,6 +753,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnPrimary(InputAction.CallbackContext context);
         void OnSecondary(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }
