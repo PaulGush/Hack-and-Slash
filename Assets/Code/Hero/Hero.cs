@@ -11,11 +11,19 @@ namespace Code.Hero
     public class Hero : MonoBehaviour, IDependencyProvider
     {
         public event Action<Ability> OnAbilityChanged;
+        public event Action<Ability> OnAbilityExecuted;
         
         [SerializeField] private AttackAbility m_attackAbility;
         [SerializeField] private SpecialAbility m_specialAbility;
         [SerializeField] private BlockAbility m_blockAbility;
         [SerializeField] private DashAbility m_dashAbility;
+        
+        [Provide]
+        public Hero ProvideHero()
+        {
+            return this;
+        }
+        
         private void OnEnable()
         {
             //AbilityButton.OnButtonPressed += ExecuteAbility;
@@ -48,7 +56,15 @@ namespace Code.Hero
 
         private void ExecuteAbility(Ability ability)
         {
-            ability.ExecuteAbility(transform);
+            if (ability.Type == Ability.ExecuteType.single)
+            {
+                if (ability.ExecuteAbility(transform)) OnAbilityExecuted?.Invoke(ability);
+            }
+            else
+            {
+                ability.ExecuteAbility(transform); 
+                OnAbilityExecuted?.Invoke(ability);
+            }
         }
 
         [Button]
@@ -77,12 +93,6 @@ namespace Code.Hero
         public Ability GetSpecialAbility() => m_specialAbility;
         public Ability GetBlockAbility() => m_blockAbility;
         public Ability GetDashAbility() => m_dashAbility;
-        
-        [Provide]
-        public Hero ProvideHero()
-        {
-            return this;
-        }
 
         private void PlayerInputs_OnPrimaryPressed()
         {

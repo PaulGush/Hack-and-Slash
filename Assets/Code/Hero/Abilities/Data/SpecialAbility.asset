@@ -17,3 +17,4 @@ MonoBehaviour:
   Range: 0
   Damage: 0
   CooldownDuration: 8
+  AnimationClip: {fileID: -203655887218126122, guid: 11020f041bd963349afa69374ab2ae4e, type: 3}

@@ -16,3 +16,4 @@ MonoBehaviour:
   Duration: 0.25
   Force: 1.5
   CooldownDuration: 1
+  AnimationClip: {fileID: -203655887218126122, guid: a5354aee8e0bd7c4a9c1364f009bf066, type: 3}

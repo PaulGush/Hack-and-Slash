@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35374697521640bdade9842ad1a4931a, type: 3}
+  m_Name: SpecialAbility_LightningStrike
+  m_EditorClassIdentifier: 
+  Type: 1
+  Icon: {fileID: 21300000, guid: 109c3dc9c4f8fd949aba1992f254d8e0, type: 3}
+  Duration: 0
+  Range: 0
+  Damage: 0
+  CooldownDuration: 10
+  AnimationClip: {fileID: -203655887218126122, guid: 11020f041bd963349afa69374ab2ae4e, type: 3}
+  Prefab: {fileID: 1454807473737458, guid: 6108438f5e38d0b4b8fed06af6b74254, type: 3}
