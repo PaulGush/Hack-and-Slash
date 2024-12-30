@@ -20,3 +20,4 @@ MonoBehaviour:
   CooldownDuration: 10
   AnimationClip: {fileID: -203655887218126122, guid: 11020f041bd963349afa69374ab2ae4e, type: 3}
   Prefab: {fileID: 1454807473737458, guid: 6108438f5e38d0b4b8fed06af6b74254, type: 3}
+  AbilityExecutionDelay: 1.75

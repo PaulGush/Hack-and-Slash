@@ -1,3 +1,4 @@
+using System.Collections;
 using Code.Utils;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Code.Mobs.Hero.Abilities
         public float CooldownDuration;
         public AnimationClip AnimationClip;
         public GameObject Prefab;
+        public float AbilityExecutionDelay;
         
         private Cooldown m_cooldown = new Cooldown();
         
@@ -25,10 +27,21 @@ namespace Code.Mobs.Hero.Abilities
                 return false;
             }
 
+            MonoInstance.Instance.StartCoroutine(SpawnPrefab(origin, AbilityExecutionDelay));
             BeginCooldown(CooldownDuration);
-            Instantiate(Prefab, origin.position + (origin.forward * 2), Quaternion.identity);
-            
             return true;
+        }
+        
+        private IEnumerator SpawnPrefab(Transform origin, float duration)
+        {
+            float timer = duration;
+            while (timer > 0)
+            {
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+            
+            Instantiate(Prefab, origin.position + (origin.forward * 2), Quaternion.identity);
         }
 
         public override void BeginCooldown(float amount)
