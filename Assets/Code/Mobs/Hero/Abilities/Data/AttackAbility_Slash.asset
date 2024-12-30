@@ -19,3 +19,4 @@ MonoBehaviour:
   Damage: 10
   CooldownDuration: 1
   AnimationClip: {fileID: -203655887218126122, guid: 393b5bd24e8ac9d468077c418d732b9f, type: 3}
+  AbilityExecutionDelay: 0.5

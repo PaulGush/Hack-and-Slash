@@ -1,5 +1,7 @@
+using System.Collections;
 using Code.Gameplay;
 using Code.Utils;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 //USING STRATEGY PATTERN
@@ -15,26 +17,38 @@ namespace Code.Mobs.Hero.Abilities
         public int Damage;
         public float CooldownDuration;
         public AnimationClip AnimationClip;
+        public float AbilityExecutionDelay;
         
         private Cooldown m_cooldown = new Cooldown();
-        
+        private Transform m_origin;
         public override bool ExecuteAbility(Transform origin)
         {
             if (m_cooldown.IsOnCooldown())
             {
                 return false;
             }
+            
+            MonoInstance.Instance.StartCoroutine(DealDamage(origin, AbilityExecutionDelay));
+            BeginCooldown(CooldownDuration);
+            return true;
+        }
 
-            foreach (var i in Physics.OverlapCapsule(origin.position, (origin.position + (origin.forward * Range)), Range))
+        private IEnumerator DealDamage(Transform origin, float duration)
+        {
+            float timer = duration;
+            while (timer > 0)
             {
-                if (i.TryGetComponent<Damageable>(out Damageable damageable))
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+
+            foreach (var i in Physics.OverlapCapsule(m_origin.position, (m_origin.position + (m_origin.forward * Range)), Range))
+            {
+                if (i.TryGetComponent<Damageable>(out var damageable))
                 {
                     damageable.TakeDamage(Damage);
                 }
             }
-            
-            BeginCooldown(CooldownDuration);
-            return true;
         }
 
         public override void BeginCooldown(float amount)
