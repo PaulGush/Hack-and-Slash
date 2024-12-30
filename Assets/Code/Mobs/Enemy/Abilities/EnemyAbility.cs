@@ -3,7 +3,7 @@ using UnityEngine;
 
 //USING STRATEGY PATTERN
 
-namespace Code.Mobs.Goblin.Abilities
+namespace Code.Mobs.Enemy.Abilities
 {
     public abstract class EnemyAbility : ScriptableObject
     {

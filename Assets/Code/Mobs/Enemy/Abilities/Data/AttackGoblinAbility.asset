@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: AttackGoblinAbility
   m_EditorClassIdentifier: 
   Type: 1
+  m_executeAbilityAnimation: {fileID: 6720303635017113406, guid: d98a759e2e308804a9b00307d691f8f4, type: 3}
+  Range: 1
+  Damage: 5
+  CooldownDuration: 2

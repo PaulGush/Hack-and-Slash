@@ -1,6 +1,6 @@
 using System;
 using Code.Gameplay;
-using Code.Mobs.Goblin.Abilities;
+using Code.Mobs.Enemy.Abilities;
 using UnityEngine;
 
 namespace Code.Mobs.Enemy

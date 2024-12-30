@@ -1,6 +1,6 @@
 using Code.Gameplay;
 using Code.Input;
-using Code.Mobs.Goblin.Abilities;
+using Code.Mobs.Enemy.Abilities;
 using UnityEngine;
 
 namespace Code.Mobs.Enemy.Animation
@@ -58,6 +58,8 @@ namespace Code.Mobs.Enemy.Animation
 
         private void HealthSystem_OnDeath()
         {
+            m_healthSystem.OnDamaged -= HealthSystem_OnDamaged;
+            m_healthSystem.OnDeath -= HealthSystem_OnDeath;
             PlayAnimation(m_onDeath);
         }
     }
