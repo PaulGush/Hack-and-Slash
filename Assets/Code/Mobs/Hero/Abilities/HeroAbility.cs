@@ -3,9 +3,9 @@ using UnityEngine;
 
 //USING STRATEGY PATTERN
 
-namespace Code.Hero.Abilities
+namespace Code.Mobs.Hero.Abilities
 {
-    public abstract class Ability : ScriptableObject
+    public abstract class HeroAbility : ScriptableObject
     {
         public enum ExecuteType
         {

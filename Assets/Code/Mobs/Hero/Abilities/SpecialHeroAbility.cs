@@ -3,17 +3,18 @@ using UnityEngine;
 
 //USING STRATEGY PATTERN
 
-namespace Code.Hero.Abilities
+namespace Code.Mobs.Hero.Abilities
 {
-    [CreateAssetMenu(fileName = "BlockAbility", menuName = "Abilities/Block Ability")]
-    public class BlockAbility : Ability
+    [CreateAssetMenu(fileName = "SpecialHeroAbility", menuName = "Abilities/Hero/SpecialAbility")]
+    public class SpecialHeroAbility : HeroAbility
     {
         public Sprite Icon;
         public float Duration;
         public float Range;
-        public float MaxDamageAbsorption;
+        public float Damage;
         public float CooldownDuration;
         public AnimationClip AnimationClip;
+        public GameObject Prefab;
         
         private Cooldown m_cooldown = new Cooldown();
         
@@ -23,8 +24,10 @@ namespace Code.Hero.Abilities
             {
                 return false;
             }
-            
+
             BeginCooldown(CooldownDuration);
+            Instantiate(Prefab, origin.position + (origin.forward * 2), Quaternion.identity);
+            
             return true;
         }
 

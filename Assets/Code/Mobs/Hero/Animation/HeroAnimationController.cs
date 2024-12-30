@@ -1,14 +1,14 @@
-using System;
-using Code.Hero.Abilities;
 using Code.Input;
+using Code.Mobs.Hero.Abilities;
 using DependencyInjection;
 using UnityEngine;
 
-namespace Code.Hero.Animation
+namespace Code.Mobs.Hero.Animation
 {
     public class HeroAnimationController : MonoBehaviour
     {
-        [Inject, SerializeField] private Hero m_hero;
+        private static readonly int Speed = Animator.StringToHash("Speed");
+        [Inject, SerializeField] private Mobs.Hero.Hero m_hero;
         [SerializeField] private Animator m_animator;
 
         private void OnEnable()
@@ -28,7 +28,7 @@ namespace Code.Hero.Animation
 
         private void UpdateAnimParams()
         {
-            m_animator.SetFloat("Speed", PlayerInputs.Instance.MoveInput.magnitude, 0.1f, Time.deltaTime);
+            m_animator.SetFloat(Speed, PlayerInputs.Instance.MoveInput.magnitude, 0.1f, Time.deltaTime);
         }
 
         private void PlayAnimation(AnimationClip animationClip)
@@ -36,9 +36,9 @@ namespace Code.Hero.Animation
             m_animator.Play(animationClip.name);
         }
 
-        private void Hero_OnAbilityExecuted(Ability ability)
+        private void Hero_OnAbilityExecuted(HeroAbility heroAbility)
         {
-            PlayAnimation(ability.GetAnimation());
+            PlayAnimation(heroAbility.GetAnimation());
         }
     }
 }

@@ -1,22 +1,25 @@
 using System;
-using Code.Hero.Abilities;
+using Code.Gameplay;
 using Code.Input;
-using Code.UI;
+using Code.Mobs.Hero.Abilities;
 using DependencyInjection;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Code.Hero
+namespace Code.Mobs.Hero
 {
-    public class Hero : MonoBehaviour, IDependencyProvider
+    public class Hero : MonoBehaviour, IDependencyProvider, IEntity
     {
-        public event Action<Ability> OnAbilityChanged;
-        public event Action<Ability> OnAbilityExecuted;
+        public event Action<HeroAbility> OnAbilityChanged;
+        public event Action<HeroAbility> OnAbilityExecuted;
         
-        [SerializeField] private AttackAbility m_attackAbility;
-        [SerializeField] private SpecialAbility m_specialAbility;
-        [SerializeField] private BlockAbility m_blockAbility;
-        [SerializeField] private DashAbility m_dashAbility;
+        [SerializeField] private HealthSystem m_healthSystem;
+        
+        [SerializeField] private AttackHeroAbility m_attackHeroAbility;
+        [SerializeField] private SpecialHeroAbility m_specialHeroAbility;
+        [SerializeField] private BlockHeroAbility m_blockHeroAbility;
+        [SerializeField] private DashHeroAbility m_dashHeroAbility;
         
         [Provide]
         public Hero ProvideHero()
@@ -54,49 +57,53 @@ namespace Code.Hero
             PlayerInputs.Instance.OnDashReleased -= PlayerInputs_OnDashReleased;
         }
 
-        private void ExecuteAbility(Ability ability)
+        private void ExecuteAbility(HeroAbility heroAbility)
         {
-            if (ability.Type == Ability.ExecuteType.single)
+            if (heroAbility.Type == HeroAbility.ExecuteType.single)
             {
-                if (ability.ExecuteAbility(transform)) OnAbilityExecuted?.Invoke(ability);
+                if (heroAbility.ExecuteAbility(transform)) OnAbilityExecuted?.Invoke(heroAbility);
             }
             else
             {
-                ability.ExecuteAbility(transform); 
-                OnAbilityExecuted?.Invoke(ability);
+                heroAbility.ExecuteAbility(transform); 
+                OnAbilityExecuted?.Invoke(heroAbility);
             }
         }
 
+        /// <summary>
+        /// Adds or replaces ability if an ability is not in that slot already.
+        /// </summary>
+        /// <param name="heroAbility"></param>
         [Button]
-        public void AddAbility(Ability ability)
+        public void AddAbility(HeroAbility heroAbility)
         {
-            switch (ability)
+            switch (heroAbility)
             {
-                case AttackAbility attackAbility:
-                    m_attackAbility = attackAbility;
+                case AttackHeroAbility attackAbility:
+                    m_attackHeroAbility = attackAbility;
                     break;
-                case SpecialAbility specialAbility:
-                    m_specialAbility = specialAbility;
+                case SpecialHeroAbility specialAbility:
+                    m_specialHeroAbility = specialAbility;
                     break;
-                case BlockAbility blockAbility:
-                    m_blockAbility = blockAbility;
+                case BlockHeroAbility blockAbility:
+                    m_blockHeroAbility = blockAbility;
                     break;
-                case DashAbility dashAbility:
-                    m_dashAbility = dashAbility;
+                case DashHeroAbility dashAbility:
+                    m_dashHeroAbility = dashAbility;
                     break;
             }
 
-            OnAbilityChanged?.Invoke(ability);
+            OnAbilityChanged?.Invoke(heroAbility);
         }
 
-        public Ability GetAttackAbility() => m_attackAbility;
-        public Ability GetSpecialAbility() => m_specialAbility;
-        public Ability GetBlockAbility() => m_blockAbility;
-        public Ability GetDashAbility() => m_dashAbility;
+        public HeroAbility GetAttackAbility() => m_attackHeroAbility;
+        public HeroAbility GetSpecialAbility() => m_specialHeroAbility;
+        public HeroAbility GetBlockAbility() => m_blockHeroAbility;
+        public HeroAbility GetDashAbility() => m_dashHeroAbility;
 
         private void PlayerInputs_OnPrimaryPressed()
         {
-            ExecuteAbility(m_attackAbility);
+            ExecuteAbility(m_attackHeroAbility);
         }
 
         private void PlayerInputs_OnPrimaryReleased()
@@ -106,7 +113,7 @@ namespace Code.Hero
 
         private void PlayerInputs_OnSecondaryPressed()
         {
-            ExecuteAbility(m_specialAbility);
+            ExecuteAbility(m_specialHeroAbility);
         }
 
         private void PlayerInputs_OnSecondaryReleased()
@@ -116,7 +123,7 @@ namespace Code.Hero
 
         private void PlayerInputs_OnSpecialPressed()
         {
-            ExecuteAbility(m_blockAbility);
+            ExecuteAbility(m_blockHeroAbility);
         }
 
         private void PlayerInputs_OnSpecialReleased()
@@ -126,7 +133,7 @@ namespace Code.Hero
 
         private void PlayerInputs_OnDashPressed()
         {
-            ExecuteAbility(m_dashAbility);
+            ExecuteAbility(m_dashHeroAbility);
         }
 
         private void PlayerInputs_OnDashReleased()

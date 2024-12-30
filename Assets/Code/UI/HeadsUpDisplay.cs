@@ -1,4 +1,4 @@
-using Code.Hero.Abilities;
+using Code.Mobs.Hero.Abilities;
 using Code.UI.Factories;
 using DependencyInjection;
 using UnityEngine;
@@ -7,7 +7,7 @@ namespace Code.UI
 {
     public class HeadsUpDisplay : MonoBehaviour
     {
-        [Inject, SerializeField] private Hero.Hero m_hero;
+        [Inject, SerializeField] private Mobs.Hero.Hero m_hero;
         [SerializeField] private AbilityButtonFactory m_abilityButtonFactory;
         [SerializeField] private Transform[] m_abilityButtonsParent;
 
@@ -17,9 +17,9 @@ namespace Code.UI
             m_hero.OnAbilityChanged += Hero_OnAbilityChanged;
         }
 
-        private void Hero_OnAbilityChanged(Ability ability)
+        private void Hero_OnAbilityChanged(HeroAbility heroAbility)
         {
-            UpdateAbility(ability);
+            UpdateAbility(heroAbility);
         }
 
         private void UpdateAllAbilities()
@@ -30,28 +30,28 @@ namespace Code.UI
             UpdateAbility(m_hero.GetDashAbility());
         }
 
-        private void UpdateAbility(Ability ability)
+        private void UpdateAbility(HeroAbility heroAbility)
         {
-            switch (ability)
+            switch (heroAbility)
             {
-                case AttackAbility:
+                case AttackHeroAbility:
                     DestroyChild(m_abilityButtonsParent[0]);
-                    m_abilityButtonFactory.CreateButton(ability, m_abilityButtonsParent[0]);
+                    m_abilityButtonFactory.CreateButton(heroAbility, m_abilityButtonsParent[0]);
                     break;
                 
-                case SpecialAbility:
+                case SpecialHeroAbility:
                     DestroyChild(m_abilityButtonsParent[1]);
-                    m_abilityButtonFactory.CreateButton(ability, m_abilityButtonsParent[1]);
+                    m_abilityButtonFactory.CreateButton(heroAbility, m_abilityButtonsParent[1]);
                     break;
                 
-                case BlockAbility:
+                case BlockHeroAbility:
                     DestroyChild(m_abilityButtonsParent[2]);
-                    m_abilityButtonFactory.CreateButton(ability, m_abilityButtonsParent[2]);
+                    m_abilityButtonFactory.CreateButton(heroAbility, m_abilityButtonsParent[2]);
                     break;
                 
-                case DashAbility:
+                case DashHeroAbility:
                     DestroyChild(m_abilityButtonsParent[3]);
-                    m_abilityButtonFactory.CreateButton(ability, m_abilityButtonsParent[3]);
+                    m_abilityButtonFactory.CreateButton(heroAbility, m_abilityButtonsParent[3]);
                     break;
             }
         }

@@ -1,4 +1,4 @@
-using Code.Hero.Abilities;
+using Code.Mobs.Hero.Abilities;
 using UnityEngine;
 
 namespace Code.UI.Factories
@@ -7,7 +7,7 @@ namespace Code.UI.Factories
     public sealed class AbilityButtonFactory : ScriptableObject
     {
         [SerializeField] private GameObject m_abilityButtonPrefab;
-        public void CreateButton(Ability strategy, Transform parentTransform)
+        public void CreateButton(HeroAbility strategy, Transform parentTransform)
         {
             AbilityButton abilityButton = new AbilityButton.Builder()
                 .WithPrefab(m_abilityButtonPrefab)

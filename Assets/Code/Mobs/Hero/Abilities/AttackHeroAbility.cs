@@ -1,24 +1,23 @@
-using System;
+using Code.Gameplay;
 using Code.Utils;
 using UnityEngine;
-using UnityEngine.UI;
 
 //USING STRATEGY PATTERN
 
-namespace Code.Hero.Abilities
+namespace Code.Mobs.Hero.Abilities
 {
-    [CreateAssetMenu(fileName = "DashAbility", menuName = "Abilities/DashAbility")]
-    public class DashAbility : Ability
+    [CreateAssetMenu(fileName = "AttackHeroAbility", menuName = "Abilities/Hero/AttackAbility")]
+    public class AttackHeroAbility : HeroAbility
     {
         public Sprite Icon;
         public float Duration;
-        public float Force;
+        public float Range;
+        public int Damage;
         public float CooldownDuration;
         public AnimationClip AnimationClip;
         
         private Cooldown m_cooldown = new Cooldown();
-        public static event Action<float, float> OnDash;
-
+        
         public override bool ExecuteAbility(Transform origin)
         {
             if (m_cooldown.IsOnCooldown())
@@ -26,18 +25,24 @@ namespace Code.Hero.Abilities
                 return false;
             }
 
-            OnDash?.Invoke(Force, Duration);
+            foreach (var i in Physics.OverlapCapsule(origin.position, (origin.position + (origin.forward * Range)), Range))
+            {
+                if (i.TryGetComponent<Damageable>(out Damageable damageable))
+                {
+                    damageable.TakeDamage(Damage);
+                }
+            }
+            
             BeginCooldown(CooldownDuration);
             return true;
         }
 
         public override void BeginCooldown(float amount)
         {
-            MonoInstance.Instance.StartCoroutine(m_cooldown.Begin(amount));
+            MonoInstance.Instance.StartCoroutine(m_cooldown.Begin(amount));        
         }
 
         public override Sprite GetIcon() => Icon;
-        
         public override Cooldown GetCooldown() => m_cooldown;
         public override AnimationClip GetAnimation() => AnimationClip;
     }

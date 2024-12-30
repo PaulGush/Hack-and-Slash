@@ -1,10 +1,9 @@
 using System.Collections;
-using Code.Hero.Abilities;
 using Code.Input;
+using Code.Mobs.Hero.Abilities;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Code.Hero
+namespace Code.Mobs.Hero
 {
     public class HeroLocomotion : MonoBehaviour
     {
@@ -18,7 +17,7 @@ namespace Code.Hero
 
         private void Awake()
         {
-            DashAbility.OnDash += DashAbilityStrategy_OnDash;
+            DashHeroAbility.OnDash += DashAbilityStrategy_OnDash;
         }
 
         private void Update()

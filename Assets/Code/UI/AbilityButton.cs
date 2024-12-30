@@ -1,7 +1,8 @@
 using System;
-using Code.Hero.Abilities;
+using Code.Mobs.Hero.Abilities;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Cooldown = Code.Utils.Cooldown;
 
@@ -9,7 +10,7 @@ namespace Code.UI
 {
     public class AbilityButton : MonoBehaviour
     {
-        public Ability Ability;
+        public HeroAbility m_heroAbility;
         public Image Radial;
         public TextMeshProUGUI Text;
         public Image Icon;
@@ -17,12 +18,12 @@ namespace Code.UI
 
         private Cooldown m_cooldown;
 
-        public static event Action<Ability> OnButtonPressed; 
+        public static event Action<HeroAbility> OnButtonPressed; 
         
         public class Builder
         {
             private GameObject m_buttonPrefab;
-            private Ability m_strategy;
+            private HeroAbility m_strategy;
             private Cooldown m_cooldown;
             private Transform m_parent;
 
@@ -32,9 +33,9 @@ namespace Code.UI
                 return this;
             }
 
-            public Builder WithAbility(Ability ability)
+            public Builder WithAbility(HeroAbility heroAbility)
             {
-                m_strategy = ability;
+                m_strategy = heroAbility;
                 return this;
             }
 
@@ -66,13 +67,13 @@ namespace Code.UI
 
         private void Initialize()
         {
-            m_cooldown = Ability.GetCooldown();
-            UpdateIcon(Ability.GetIcon());
+            m_cooldown = m_heroAbility.GetCooldown();
+            UpdateIcon(m_heroAbility.GetIcon());
 
             m_cooldown.OnCooldownBegin += Cooldown_OnCooldownBegin;
             m_cooldown.OnCooldownTimerTick += Cooldown_OnCooldownTimerTick;
             
-            ButtonComponent.onClick.AddListener(() => OnButtonPressed?.Invoke(Ability));
+            ButtonComponent.onClick.AddListener(() => OnButtonPressed?.Invoke(m_heroAbility));
         }
 
         private float m_cooldownDuration;
@@ -107,7 +108,7 @@ namespace Code.UI
         }
 
         private void UpdateIcon(Sprite icon) => Icon.sprite = icon;
-        
-        public void SetAbilityStrategy(Ability strategy) => Ability = strategy;
+
+        private void SetAbilityStrategy(HeroAbility strategy) => m_heroAbility = strategy;
     }
 }

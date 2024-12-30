@@ -3,15 +3,15 @@ using UnityEngine;
 
 //USING STRATEGY PATTERN
 
-namespace Code.Hero.Abilities
+namespace Code.Mobs.Hero.Abilities
 {
-    [CreateAssetMenu(fileName = "AttackAbility", menuName = "Abilities/AttackAbility")]
-    public class AttackAbility : Ability
+    [CreateAssetMenu(fileName = "BlockHeroAbility", menuName = "Abilities/Hero/Block Ability")]
+    public class BlockHeroAbility : HeroAbility
     {
         public Sprite Icon;
         public float Duration;
         public float Range;
-        public float Damage;
+        public float MaxDamageAbsorption;
         public float CooldownDuration;
         public AnimationClip AnimationClip;
         
