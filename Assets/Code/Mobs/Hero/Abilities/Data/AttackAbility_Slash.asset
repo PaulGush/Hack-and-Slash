@@ -15,7 +15,7 @@ MonoBehaviour:
   Type: 1
   Icon: {fileID: 21300000, guid: 97ea53a898ea4524e8a0605a83e59085, type: 3}
   Duration: 0
-  Range: 5
+  Range: 1.5
   Damage: 10
   CooldownDuration: 1
   AnimationClip: {fileID: -203655887218126122, guid: 393b5bd24e8ac9d468077c418d732b9f, type: 3}

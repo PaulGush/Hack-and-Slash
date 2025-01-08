@@ -34,5 +34,7 @@ namespace Code.Gameplay
         {
             m_currentHealth = health;
         }
+        
+        public int GetCurrentHealth() => m_currentHealth;
     }
 }

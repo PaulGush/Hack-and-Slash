@@ -2,6 +2,7 @@ using Code.Gameplay;
 using Code.Input;
 using Code.Mobs.Enemy.Abilities;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Code.Mobs.Enemy.Animation
 {
@@ -12,6 +13,7 @@ namespace Code.Mobs.Enemy.Animation
         [SerializeField] private Enemy m_enemy;
         [SerializeField] private Animator m_animator;
         [SerializeField] private HealthSystem m_healthSystem;
+        [SerializeField] private NavMeshAgent m_navMeshAgent;
 
         [Space(10)] 
         [SerializeField] private AnimationClip m_onDamaged;
@@ -38,10 +40,10 @@ namespace Code.Mobs.Enemy.Animation
 
         private void UpdateAnimParams()
         {
-            m_animator.SetFloat(Speed, PlayerInputs.Instance.MoveInput.magnitude, 0.1f, Time.deltaTime);
+            m_animator.SetFloat(Speed, m_navMeshAgent.velocity.magnitude, 0.1f, Time.deltaTime);
         }
 
-        private void PlayAnimation(AnimationClip animationClip)
+        public void PlayAnimation(AnimationClip animationClip)
         {
             m_animator.Play(animationClip.name);
         }

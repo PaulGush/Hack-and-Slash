@@ -23,5 +23,7 @@ namespace Code.Mobs.Enemy
                 OnAbilityExecuted?.Invoke(enemyAbility);
             }
         }
+
+        public AnimationClip GetAbilityAnimationClip() => m_attackEnemyAbility.GetAnimation();
     }
 }

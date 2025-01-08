@@ -35,6 +35,8 @@ namespace Code.Mobs.Hero.Abilities
 
         private IEnumerator DealDamage(Transform origin, float duration)
         {
+            m_origin = origin;
+            
             float timer = duration;
             while (timer > 0)
             {
