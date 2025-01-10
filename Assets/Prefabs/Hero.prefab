@@ -99,10 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913dfa1b835741bb8667ca2672bdcfab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_healthSystem: {fileID: 0}
   m_attackHeroAbility: {fileID: 0}
   m_specialHeroAbility: {fileID: 0}
   m_blockHeroAbility: {fileID: 0}
   m_dashHeroAbility: {fileID: 0}
+  m_services: []
 --- !u!114 &1609470895166391960
 MonoBehaviour:
   m_ObjectHideFlags: 0
